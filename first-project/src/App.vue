@@ -1,120 +1,79 @@
 <template>
   <div id="app">
-    <h2>My personal costs</h2>
-    <button class="new-cost" @click="showForm = !showForm">
-      add new cost <span v-if="!showForm">&#8595;</span
-      ><span v-if="showForm">&#8593;</span>
-    </button>
-    <CostsAdd v-if="showForm" @addCostsItem="addCostsItem" />
-    <CostsList :items="paymentsList" />
+    <header>
+      <router-link to="/costs">Personal costs</router-link>
+      <router-link to="/calc">Calculator</router-link>
+      <router-link to="/about">About</router-link>
+    </header>
+    <main>
+      <router-view/>
+    </main>
   </div>
 </template>
 
 <script>
-import CostsList from "./components/CostsList.vue";
-import CostsAdd from "./components/CostsAdd.vue";
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    CostsList,
-    CostsAdd,
   },
-  data() {
+  props: {
+    category: {
+      type: String,
+      default: ''
+    }
+  },
+  data () {
     return {
-      paymentsList: [],
       showForm: false,
-    };
+      page: 1,
+      quantity: 3
+    }
   },
   methods: {
-    fetchData() {
-      return [
-        {
-          id: 1,
-          date: "28.03.2020",
-          category: "Food",
-          value: 169,
-        },
-        {
-          id: 2,
-          date: "24.03.2020",
-          category: "Transport",
-          value: 360,
-        },
-        {
-          id: 3,
-          date: "24.03.2020",
-          category: "Food",
-          value: 532,
-        },
-        {
-          id: 4,
-          date: "21.03.2020",
-          category: "Housing",
-          value: 273,
-        },
-        {
-          id: 5,
-          date: "21.03.2020",
-          category: "Healthcare",
-          value: 545,
-        },
-        {
-          id: 6,
-          date: "16.03.2020",
-          category: "Housing",
-          value: 502,
-        },
-        {
-          id: 7,
-          date: "14.03.2020",
-          category: "Clothing",
-          value: 692,
-        },
-        {
-          id: 8,
-          date: "02.03.2020",
-          category: "Food",
-          value: 143,
-        },
-        {
-          id: 9,
-          date: "01.03.2020",
-          category: "Housing",
-          value: 339,
-        },
-      ];
-    },
-    addCostsItem(data) {
-      this.paymentsList.map((i) => {
-        i.id += 1;
-      });
-      this.paymentsList = [data, ...this.paymentsList];
-    },
+
   },
-  created() {
-    this.paymentsList = this.fetchData();
-  },
-};
+  computed: {
+
+  }
+}
 </script>
 
 <style lang="scss">
+body {
+  margin: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 40px;
-  margin-left: 15px;
 }
-.new-cost {
-  width: 136px;
+
+header {
+  background-color: #ccc;
+  padding: 15px 20px;
+}
+
+main {
+  margin-left: 25px;
+}
+
+a {
+  margin-right: 25px;
+  color: black;
+  text-decoration: none;
   font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 5px 10px;
-  color: #fff;
-  background-color: #0d98ba;
-  border: none;
+  transition: color .2s;
+  &:hover {
+    color: #0D98BA;
+  }
 }
+
+.router-link-active {
+  color: #0D98BA;
+}
+
 </style>

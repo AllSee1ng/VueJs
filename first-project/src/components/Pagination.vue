@@ -1,87 +1,32 @@
 <template>
   <div>
-    <span class="pagination" @click="left">&lt;</span>
-    <span class="pagination" v-for="p in pagesCount" :key="p" @click="switcher(p)">
-    {{ p }}
+    <span class="pagination" @click="onClick(current - 1)">&lt;</span>
+    <span class="pagination" v-for="page in pageCount" :key="page" @click="onClick(page)" :class="{ active: current === page }">
+    {{ page }}
   </span>
-    <span class="pagination" @click="right">&gt;</span>
+    <span class="pagination" @click="onClick(current + 1)">&gt;</span>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Pagination',
-  data () {
-    return {
-      start: 0,
-      end: 5,
-      newStart: 0,
-      newEnd: 5
-    }
-  },
   props: {
-    itemsCount: {
-      type: Number
+    quantity: Number,
+    current: Number,
+    length: Number
+  },
+  computed: {
+    pageCount () {
+      return Math.ceil(this.length / this.quantity)
     }
   },
   methods: {
-    switcher (n) {
-      if (n === 1) {
-        const data = {
-          end: this.end,
-          start: this.start
-        }
-        this.$emit('distance', data)
-        this.newEnd = this.end
-        this.newStart = this.start
-      } else {
-        const data = {
-          end: this.end * n,
-          start: this.end * n - this.end
-        }
-        this.$emit('distance', data)
-        this.newEnd = this.end * n
-        this.newStart = this.end * n - this.end
+    onClick (page) {
+      if (page < 1 || page > this.pageCount) {
+        return
       }
-    },
-    left () {
-      if (this.newStart === 0) {
-        const data = {
-          end: this.end,
-          start: this.start
-        }
-        this.$emit('distance', data)
-      } else {
-        const data = {
-          end: this.newEnd -= this.end,
-          start: this.newStart -= this.end
-        }
-        this.$emit('distance', data)
-      }
-    },
-    right () {
-      if (this.newEnd === this.end * this.pagesCount) {
-        const data = {
-          end: this.newEnd,
-          start: this.newStart
-        }
-        this.$emit('distance', data)
-      } else {
-        const data = {
-          end: this.newEnd += this.end,
-          start: this.newStart += this.end
-        }
-        this.$emit('distance', data)
-      }
-    }
-  },
-  computed: {
-    pagesCount () {
-      if (this.itemsCount % this.end === 0) {
-        return ((this.itemsCount - this.itemsCount % this.end) / this.end)
-      } else {
-        return ((this.itemsCount - this.itemsCount % this.end) / this.end) + 1
-      }
+      this.$emit('paginate', page)
     }
   }
 }
@@ -90,9 +35,14 @@ export default {
 <style scoped lang="scss">
 .pagination {
   cursor: pointer;
+  font-weight: bold;
 
   &:hover {
     color: #0D98BA;
   }
+}
+
+.active {
+  color: #0D98BA;
 }
 </style>
