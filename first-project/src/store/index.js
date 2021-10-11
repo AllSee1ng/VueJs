@@ -28,23 +28,7 @@ export default new Vuex.Store({
         item.id = n
         n++
       })
-    },
-    editDataToPaymentsList (state, payload) {
-      Vue.set(state.paymentsList, payload.id - 1, {
-        category: payload.category,
-        value: payload.value,
-        date: state.paymentsList[payload.id - 1].date,
-        id: payload.id
-      })
     }
-    //   state.paymentsList[payload.id - 1] = {
-    //     category: payload.category,
-    //     value: payload.value,
-    //     date: state.paymentsList[payload.id - 1].date,
-    //     id: payload.id
-    //   }
-    //   state.paymentsList = [...state.paymentsList]
-    // }
   },
   getters: {
     getPaymentsList: state => state.paymentsList,

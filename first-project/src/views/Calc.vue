@@ -1,8 +1,8 @@
 <template>
   <div class="calc">
     <div class="input">
-      <input v-model="op1" placeholder="введите число" @focus="picked = 1" autofocus>
-      <input v-model="op2" placeholder="введите число" @focus="picked = 2">
+      <input v-model="op1" placeholder="введите число" @focus="picked = 1" autofocus name="op1">
+      <input v-model="op2" placeholder="введите число" @focus="picked = 2" name="op2">
       = <span class="error" v-if="(isNaN(op1) || isNaN(op2))">Введите число</span>
       <span v-else>{{ result }}</span>
     </div>
@@ -11,24 +11,25 @@
         v-for="operation in operations"
         :key="operation"
         @click="calculate(operation)"
+        :name="operation"
         :disabled="check(operation)">
         {{ operation }}
       </button>
       <div class="checkbox">
         <label>
-          <input type="checkbox" v-model="toggle"> Экранная клавиатура
+          <input type="checkbox" v-model="toggle" name="toggle"> Экранная клавиатура
         </label>
       </div>
       <div class="keyboard" v-if="toggle">
-        <button v-for="number in numbers" :key="number" @click="add(number)">
+        <button v-for="number in numbers" :key="number" @click="add(number)" :name="number">
           {{ number }}
         </button>
-        <button @click="remove">
+        <button @click="remove" name="remove">
           &larr;
         </button>
         <div class="radio-button">
-          <label><input type="radio" v-model="picked" :value="1" name="radio" id="op1">Операнд 1</label>
-          <label><input type="radio" v-model="picked" :value="2" name="radio" id="op2">Операнд 2</label>
+          <label><input type="radio" v-model="picked" :value="1" name="radio1" id="op1">Операнд 1</label>
+          <label><input type="radio" v-model="picked" :value="2" name="radio2" id="op2">Операнд 2</label>
         </div>
       </div>
     </div>
@@ -118,14 +119,16 @@ export default {
     add (number) {
       if (this.picked === 1) {
         this.op1 += number
-      } else if (this.picked === 2) {
+      }
+      if (this.picked === 2) {
         this.op2 += number
       }
     },
     remove () {
       if (this.picked === 1) {
         this.op1 = this.op1.slice(0, -1)
-      } else if (this.picked === 2) {
+      }
+      if (this.picked === 2) {
         this.op2 = this.op2.slice(0, -1)
       }
     },
@@ -169,6 +172,7 @@ input {
   &[type="number"] {
     min-width: 200px;
   }
+
   &[type="radio"] {
     margin-right: 5px;
   }

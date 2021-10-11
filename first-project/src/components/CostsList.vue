@@ -12,7 +12,14 @@
         <span class="date">{{ item.date }} </span>
         <span class="category">{{ item.category }}</span>
         <span class="value">{{ item.value }}</span>
-        <span class="material-icons-outlined tools-open" @click="onClickContextItem($event,item)">more_vert</span>
+        <span class="material-icons-outlined tools-open">
+          more_vert
+          <span class="tools">
+              <span class="tool"><span class="material-icons-outlined">edit</span>Edit</span>
+              <span class="tool" @click="removeItem(item.id)"><span class="material-icons-outlined" >delete</span>Delete</span>
+          </span>
+        </span>
+
       </li>
     </ul>
   </div>
@@ -32,34 +39,9 @@ export default {
       default: false
     }
   },
-  data () {
-    return {
-      showInput: false,
-      newCategory: '',
-      newValue: ''
-    }
-  },
   methods: {
-    onClickContextItem (event, item) {
-      const items = [
-        {
-          text: 'edit',
-          action: () => {
-            this.$context.EventBus.$emit('showInput', item)
-          }
-        },
-        {
-          text: 'delete',
-          action: () => {
-            this.actionDelete(item.id)
-          }
-        }
-      ]
-      this.$context.show({ event, items })
-    },
-    actionDelete (id) {
+    removeItem (id) {
       this.$store.commit('delDataToPaymentsList', id)
-      this.$context.close()
     }
   }
 }
@@ -98,7 +80,7 @@ li {
 
 .value {
   display: block;
-  width: 45px;
+  width: 75px;
 }
 
 .number {
@@ -113,7 +95,6 @@ li {
   position: relative;
   padding-bottom: 15px;
   padding-left: 15px;
-
   &:hover .tools {
     display: flex;
   }
@@ -121,7 +102,7 @@ li {
 
 .tools {
   position: absolute;
-  top: 22px;
+  bottom: -45px;
   left: -58px;
   display: none;
   flex-direction: column;
@@ -131,7 +112,6 @@ li {
   background: white;
   -webkit-box-shadow: 0 0 15px 4px #A3A3A3;
   box-shadow: 0 0 15px 4px #A3A3A3;
-
   &:before {
     content: '';
     display: block;
@@ -150,7 +130,6 @@ li {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   padding: 5px 20px 5px 10px;
-
   &:hover {
     color: #0D98BA;
   }

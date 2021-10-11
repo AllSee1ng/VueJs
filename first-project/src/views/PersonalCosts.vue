@@ -4,12 +4,9 @@
     <p>Total price of all categories: {{ totalPrice }}</p>
     <button class="new-cost" @click="showForm=!showForm">add new cost <span v-if="!showForm">&#8595;</span><span
       v-if="showForm">&#8593;</span></button>
-    <CostsAdd v-if="showForm"
-              @addCostsItem="addCostsItem"
-              :selectList="categoryList"
-              :props-category="category"
+    <CostsAdd v-if="showForm" @addCostsItem="addCostsItem" :selectList="categoryList" :props-category="category"
               :props-value="value"/>
-    <CostsList :items="currentElements"/>
+    <CostsList show-items :items="currentElements"/>
     <Pagination :current="page" :quantity="quantity" :length="getPaymentsList.length" @paginate="changePage"/>
   </div>
 </template>
