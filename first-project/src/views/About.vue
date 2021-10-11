@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="logo">
-      <img src="../assets/eye.jpg" alt="eye" />
+      <img src="../assets/eye.jpg" alt="wolf" />
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@ export default {
 .logo {
   width: 400px;
   height: 400px;
+
   background-size: 400px 400px;
 }
 img {

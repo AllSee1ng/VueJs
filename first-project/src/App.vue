@@ -8,33 +8,25 @@
     <main>
       <router-view/>
     </main>
+    <transition name="fade">
+      <modal-window-edit-menu/>
+    </transition>
   </div>
 </template>
 
 <script>
-
+import ModalWindowEditMenu from '@/components/ModalWindowEditMenu'
 export default {
   name: 'App',
   components: {
+    ModalWindowEditMenu
   },
   props: {
-    category: {
-      type: String,
-      default: ''
-    }
-  },
-  data () {
-    return {
-      showForm: false,
-      page: 1,
-      quantity: 3
-    }
   },
   methods: {
 
   },
   computed: {
-
   }
 }
 </script>

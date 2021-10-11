@@ -4,14 +4,13 @@
     <p>Total price of all categories: {{ totalPrice }}</p>
     <button class="new-cost" @click="showForm=!showForm">add new cost <span v-if="!showForm">&#8595;</span><span
       v-if="showForm">&#8593;</span></button>
-    <CostsAdd v-if="showForm" @addCostsItem="addCostsItem" :selectList="categoryList" :props-category="category"
+    <CostsAdd v-if="showForm"
+              @addCostsItem="addCostsItem"
+              :selectList="categoryList"
+              :props-category="category"
               :props-value="value"/>
-    <CostsList show-items :items="currentElements"/>
+    <CostsList :items="currentElements"/>
     <Pagination :current="page" :quantity="quantity" :length="getPaymentsList.length" @paginate="changePage"/>
-    <br>
-    <a href="/costs/add/payment/Food?value=200">добавить платёж категории Food с ценой 200</a>
-    <a href="/costs/add/payment/Transport?value=50">добавить платёж категории Transport с ценой 50</a>
-    <a href="/costs/add/payment/Entertainment?value=2000">добавить платёж категории Entertainment с ценой 2000</a>
   </div>
 </template>
 
@@ -33,7 +32,7 @@ export default {
     return {
       showForm: false,
       page: 1,
-      quantity: 3,
+      quantity: 5,
       category: '',
       value: ''
     }

@@ -9,39 +9,41 @@ import About from '@/views/About'
 Vue.use(Router)
 
 const router = new Router({
-    mode: 'history',
-    routes: [{
-            path: '/costs',
-            name: 'costs',
-            component: PersonalCosts,
-            children: [{
-                    path: '/costs/:page',
-                    component: PersonalCosts
-                },
-                {
-                    path: '/costs/:action/:what/:category',
-                    name: 'addLink',
-                    component: PersonalCosts,
-                    props: true
-                }
-            ]
+  mode: 'history',
+  routes: [
+    {
+      path: '/costs',
+      name: 'costs',
+      component: PersonalCosts,
+      children: [
+        {
+          path: '/costs/:page',
+          component: PersonalCosts
         },
         {
-            path: '/calc',
-            name: 'calc',
-            component: Calculator
-        },
-        {
-            path: '/about',
-            name: 'about',
-            component: About
+          path: '/costs/:action/:what/:category',
+          name: 'addLink',
+          component: PersonalCosts,
+          props: true
         }
-        // {
-        //   path: '/*',
-        //   name: '404',
-        //   component: NotFound
-        // }
-    ]
+      ]
+    },
+    {
+      path: '/calc',
+      name: 'calc',
+      component: Calculator
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
+    }
+    // {
+    //   path: '/*',
+    //   name: '404',
+    //   component: NotFound
+    // }
+  ]
 })
 
 // const titles = {

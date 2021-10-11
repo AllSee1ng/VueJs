@@ -20,7 +20,31 @@ export default new Vuex.Store({
     },
     setCategoriesList (state, payload) {
       state.categoryList = payload
+    },
+    delDataToPaymentsList (state, payload) {
+      state.paymentsList.splice(payload - 1, 1)
+      let n = 1
+      state.paymentsList.map(item => {
+        item.id = n
+        n++
+      })
+    },
+    editDataToPaymentsList (state, payload) {
+      Vue.set(state.paymentsList, payload.id - 1, {
+        category: payload.category,
+        value: payload.value,
+        date: state.paymentsList[payload.id - 1].date,
+        id: payload.id
+      })
     }
+    //   state.paymentsList[payload.id - 1] = {
+    //     category: payload.category,
+    //     value: payload.value,
+    //     date: state.paymentsList[payload.id - 1].date,
+    //     id: payload.id
+    //   }
+    //   state.paymentsList = [...state.paymentsList]
+    // }
   },
   getters: {
     getPaymentsList: state => state.paymentsList,
