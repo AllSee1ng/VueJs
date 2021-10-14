@@ -16,7 +16,6 @@ export default {
 .logo {
   width: 400px;
   height: 400px;
-
   background-size: 400px 400px;
 }
 img {

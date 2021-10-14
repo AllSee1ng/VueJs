@@ -1,4 +1,4 @@
-# first-project
+# personal_costs
 
 ## Project setup
 ```
